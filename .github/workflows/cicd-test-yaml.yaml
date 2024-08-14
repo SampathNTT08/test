@@ -36,7 +36,7 @@ jobs:
       run: mvn help:effective-settings
     
     - name: Build with maven
-      run: mvn -B clean package -s .maven/settings.xml -DskipMunitTests
+      run: mvn -B clean package -s .maven/settings.xml
     
     - name: Stamp artifact file name with commit hash
       run: |
@@ -79,7 +79,7 @@ jobs:
     - name: Upload to Exchange
       run: |
         artifactName=$(ls *.jar | head -1)
-        mvn deploy -s .maven/settings.xml -Dmule.artifact=$artifactName -DskipMunitTests
+        mvn deploy -s .maven/settings.xml -Dmule.artifact=$artifactName
          
   deploy:
     needs: build
@@ -106,4 +106,4 @@ jobs:
       run: |
         artifactName=$(ls *.jar | head -1)
         
-        mvn deploy -e -DmuleDeploy -DapplicationName=sf-sapi-test-v2 -Dmule.artifact=$artifactName -s .maven/settings.xml -DskipTests -Dserver=ca.anypoint.credentials -Denvironment=Test -Dmule.env=test  --file pom.xml
+        mvn deploy -e -DmuleDeploy -DapplicationName=munit-test-v2 -Dmule.artifact=$artifactName -s .maven/settings.xml -Dserver=ca.anypoint.credentials -Denvironment=qa -Dmule.env=qa  --file pom.xml
